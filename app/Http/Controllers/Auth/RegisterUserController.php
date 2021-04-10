@@ -8,7 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class RegisteredUserController extends Controller
+class RegisterUserController extends Controller
 {
     public function store(RegisteredUserRequest $request)
     {
