@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Helpers\SanitizeHelper;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -13,7 +14,10 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        $roles = Role::query()->select('id')->pluck('id');
+
         return [
+            'role_id'           => $this->faker->randomElements($roles)[0],
             'name'              => $this->faker->name,
             'cpf'               => (new SanitizeHelper($this->faker->cpf))->cpfCnpj()->sanitize(),
             'email'             => $this->faker->unique()->safeEmail,

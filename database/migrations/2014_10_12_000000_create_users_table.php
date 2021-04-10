@@ -10,6 +10,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('role_id')->constrained()->onDelete('RESTRICT');
             $table->string('name');
             $table->string('cpf', 11);
             $table->string('email')->unique();
