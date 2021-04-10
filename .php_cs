@@ -77,6 +77,8 @@ $finder = Finder::create();
 
 $finder->in([
     __DIR__ . '/app',
+    __DIR__ . '/tests',
+    __DIR__ . '/database',
 ]);
 
 $config = Config::create();
