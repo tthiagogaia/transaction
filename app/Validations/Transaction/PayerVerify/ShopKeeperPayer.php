@@ -26,7 +26,7 @@ class ShopKeeperPayer implements PayerVerifiable
             ->find($payerId);
 
         if ($user) {
-            throw new InvalidPayerException(__('Shopkeepers users only receive transactions'));
+            throw new InvalidPayerException();
         }
 
         return $this->nextPayerVerifiable->getPayer($payerId, $payeeId);

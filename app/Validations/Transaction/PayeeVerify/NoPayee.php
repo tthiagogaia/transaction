@@ -13,6 +13,6 @@ class NoPayee implements PayeeVerifiable
 
     public function getPayee(int $id)
     {
-        throw new PayeeNotFoundException(__('Payee not found'));
+        throw new PayeeNotFoundException();
     }
 }

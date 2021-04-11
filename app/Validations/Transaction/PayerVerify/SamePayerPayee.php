@@ -17,9 +17,7 @@ class SamePayerPayee implements PayerVerifiable
     public function getPayer(int $payerId, int $payeeId)
     {
         if ($payerId === $payeeId) {
-            throw new SamePayerException(
-                __('It is not possible to accomplish transactions from a user to the same user')
-            );
+            throw new SamePayerException();
         }
 
         return $this->nextPayerVerifiable->getPayer($payerId, $payeeId);

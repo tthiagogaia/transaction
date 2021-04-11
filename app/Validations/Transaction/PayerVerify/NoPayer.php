@@ -13,6 +13,6 @@ class NoPayer implements PayerVerifiable
 
     public function getPayer(int $payerId, int $payeeId)
     {
-        throw new PayerNotFoundException(__('Payer not found'));
+        throw new PayerNotFoundException();
     }
 }
