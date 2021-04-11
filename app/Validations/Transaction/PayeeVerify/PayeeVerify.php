@@ -13,6 +13,6 @@ class PayeeVerify
         $payeeUser->setNext($payeeCompany);
         $payeeCompany->setNext($noPayee);
 
-        return $payeeUser->get($payeeId);
+        return $payeeUser->getPayee($payeeId);
     }
 }

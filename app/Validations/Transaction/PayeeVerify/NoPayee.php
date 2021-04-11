@@ -2,16 +2,16 @@
 
 namespace App\Validations\Transaction\PayeeVerify;
 
-use App\Validations\Transaction\Contracts\PayeePayerVerifiable;
+use App\Validations\Transaction\Contracts\PayeeVerifiable;
 use App\Validations\Transaction\Excetions\PayeeNotFoundException;
 
-class NoPayee implements PayeePayerVerifiable
+class NoPayee implements PayeeVerifiable
 {
-    public function setNext(PayeePayerVerifiable $nextPayeePayerVerifiable)
+    public function setNext(PayeeVerifiable $nextPayeePayerVerifiable)
     {
     }
 
-    public function get(int $id)
+    public function getPayee(int $id)
     {
         throw new PayeeNotFoundException(__('Payee not found'));
     }
