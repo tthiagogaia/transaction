@@ -10,8 +10,8 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('cnpj', 14);
+            $table->string('name');
+            $table->string('cnpj', 14)->unique();
             $table->timestamps();
         });
     }
