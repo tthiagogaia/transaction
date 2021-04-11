@@ -5,7 +5,7 @@ namespace App\Validations\Transaction\PayerVerify;
 use App\Models\Role;
 use App\Models\User;
 use App\Validations\Transaction\Contracts\PayerVerifiable;
-use App\Validations\Transaction\Excetions\InvalidPayerException;
+use App\Validations\Transaction\Exceptions\InvalidPayerException;
 
 class ShopKeeperPayer implements PayerVerifiable
 {

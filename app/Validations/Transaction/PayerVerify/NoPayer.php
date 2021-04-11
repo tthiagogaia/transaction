@@ -3,7 +3,7 @@
 namespace App\Validations\Transaction\PayerVerify;
 
 use App\Validations\Transaction\Contracts\PayerVerifiable;
-use App\Validations\Transaction\Excetions\PayerNotFoundException;
+use App\Validations\Transaction\Exceptions\PayerNotFoundException;
 
 class NoPayer implements PayerVerifiable
 {

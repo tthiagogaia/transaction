@@ -3,7 +3,7 @@
 namespace App\Validations\Transaction\PayerVerify;
 
 use App\Validations\Transaction\Contracts\PayerVerifiable;
-use App\Validations\Transaction\Excetions\SamePayerException;
+use App\Validations\Transaction\Exceptions\SamePayerException;
 
 class SamePayerPayee implements PayerVerifiable
 {

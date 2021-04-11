@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Validations\Transaction\Excetions;
+namespace App\Validations\Transaction\Exceptions;
 
 use Throwable;
 

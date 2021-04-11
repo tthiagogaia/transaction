@@ -3,7 +3,7 @@
 namespace App\Validations\Transaction\PayeeVerify;
 
 use App\Validations\Transaction\Contracts\PayeeVerifiable;
-use App\Validations\Transaction\Excetions\PayeeNotFoundException;
+use App\Validations\Transaction\Exceptions\PayeeNotFoundException;
 
 class NoPayee implements PayeeVerifiable
 {
