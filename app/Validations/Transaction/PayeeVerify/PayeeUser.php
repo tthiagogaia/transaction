@@ -7,17 +7,17 @@ use App\Validations\Transaction\Contracts\PayeeVerifiable;
 
 class PayeeUser implements PayeeVerifiable
 {
-    private $nextPayeePayerVerifiable;
+    private $nextPayeeVerifiable;
 
-    public function setNext(PayeeVerifiable $nextPayeePayerVerifiable)
+    public function setNext(PayeeVerifiable $nextPayeeVerifiable)
     {
-        $this->nextPayeePayerVerifiable = $nextPayeePayerVerifiable;
+        $this->nextPayeeVerifiable = $nextPayeeVerifiable;
     }
 
     public function getPayee(int $payeeId)
     {
         $user = User::query()->find($payeeId);
 
-        return $user ? $user : $this->nextPayeePayerVerifiable->get($payeeId);
+        return $user ? $user : $this->nextPayeeVerifiable->get($payeeId);
     }
 }

@@ -7,7 +7,7 @@ use App\Validations\Transaction\Excetions\PayeeNotFoundException;
 
 class NoPayee implements PayeeVerifiable
 {
-    public function setNext(PayeeVerifiable $nextPayeePayerVerifiable)
+    public function setNext(PayeeVerifiable $nextPayeeVerifiable)
     {
     }
 
