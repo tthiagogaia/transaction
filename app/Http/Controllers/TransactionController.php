@@ -12,7 +12,7 @@ class TransactionController extends Controller
         try {
             return (new CreateTransaction())->create($request->all());
         } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()], 500);
+            return response()->json(['error' => $th->getMessage()], 400);
         }
     }
 }
