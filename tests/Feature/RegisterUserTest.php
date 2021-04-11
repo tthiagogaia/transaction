@@ -19,7 +19,7 @@ class RegisterUserTest extends FeatureTest
 
     public function test_it_should_be_able_to_register_new_user()
     {
-        $this->postJson('/api/register', [
+        $this->postJson(route('register'), [
             'name'                  => 'Thiago Gabriel',
             'email'                 => 'tthiagogaia@gmail.com',
             'cpf'                   => '692.437.850-10',
@@ -30,7 +30,7 @@ class RegisterUserTest extends FeatureTest
 
     public function test_validate_all_fields_to_register_new_user()
     {
-        $this->postJson('/api/register', [])
+        $this->postJson(route('register'), [])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
                 'name'     => __('validation.required', ['attribute' => 'name']),
@@ -39,7 +39,7 @@ class RegisterUserTest extends FeatureTest
                 'password' => __('validation.required', ['attribute' => 'password']),
             ]);
 
-        $this->postJson('/api/register', [
+        $this->postJson(route('register'), [
             'name'                  => 'Thiago Gabriel',
             'email'                 => 'invalid',
             'cpf'                   => '000.000.000-00',
@@ -59,7 +59,7 @@ class RegisterUserTest extends FeatureTest
             'email'   => 'tthiagogaia@gmail.com',
         ]);
 
-        $this->postJson('/api/register', [
+        $this->postJson(route('register'), [
             'name'                  => Str::random(256),
             'email'                 => 'tthiagogaia@gmail.com',
             'cpf'                   => '692.437.850-10',
@@ -77,7 +77,7 @@ class RegisterUserTest extends FeatureTest
 
     public function test_new_registered_user_has_consumer_role()
     {
-        $response = $this->postJson('/api/register', [
+        $response = $this->postJson(route('register'), [
             'name'                  => 'Thiago Gabriel',
             'email'                 => 'tthiagogaia@gmail.com',
             'cpf'                   => '692.437.850-10',

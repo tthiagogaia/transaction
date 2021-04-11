@@ -22,7 +22,7 @@ class LoginTest extends FeatureTest
             'password' => Hash::make('password'),
         ]);
 
-        $this->postJson('api/login', [
+        $this->postJson(route('login'), [
             'email'    => $user->email,
             'password' => 'password',
         ])
@@ -31,14 +31,14 @@ class LoginTest extends FeatureTest
 
     public function test_validate_all_fields_to_login()
     {
-        $this->postJson('api/login', [])
+        $this->postJson(route('login'), [])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
                 'email'    => __('validation.required', ['attribute' => 'email']),
                 'password' => __('validation.required', ['attribute' => 'password']),
             ]);
 
-        $this->postJson('api/login', [
+        $this->postJson(route('login'), [
             'email'    => 'invalid',
             'password' => 'anyPassword',
         ])
@@ -54,14 +54,14 @@ class LoginTest extends FeatureTest
             'password' => Hash::make('password'),
         ]);
 
-        $this->postJson('api/login', [
+        $this->postJson(route('login'), [
             'email'    => $user->email,
             'password' => 'wrongPassword',
         ])
             ->assertJson(['message' => __('Invalid credentials')])
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
 
-        $this->postJson('api/login', [
+        $this->postJson(route('login'), [
             'email'    => 'wrong_email@gmail.com',
             'password' => 'password',
         ])

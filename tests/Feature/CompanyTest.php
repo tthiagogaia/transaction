@@ -26,7 +26,7 @@ class CompanyTest extends FeatureTest
 
     public function test_only_authenticated_users_can_create_a_company()
     {
-        $this->postJson('api/company', [
+        $this->postJson(route('company.store'), [
             'name' => 'Company Inc',
             'cnpj' => '30668548000175',
         ])
@@ -34,7 +34,7 @@ class CompanyTest extends FeatureTest
 
         $this->actingAs($this->consumer);
 
-        $this->postJson('api/company', [
+        $this->postJson(route('company.store'), [
             'name' => 'Company Inc',
             'cnpj' => '30668548000175',
         ])
@@ -45,14 +45,14 @@ class CompanyTest extends FeatureTest
     {
         $this->actingAs($this->consumer);
 
-        $this->postJson('api/company', [])
+        $this->postJson(route('company.store'), [])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
                 'name' => __('validation.required', ['attribute' => 'name']),
                 'cnpj' => __('validation.required', ['attribute' => 'cnpj']),
             ]);
 
-        $this->postJson('api/company', [
+        $this->postJson(route('company.store'), [
             'name' => 'Company name',
             'cnpj' => '00000000000000',
         ])
@@ -63,7 +63,7 @@ class CompanyTest extends FeatureTest
 
         $company = Company::factory()->create();
 
-        $this->postJson('api/company', [
+        $this->postJson(route('company.store'), [
             'name' => Str::random(256),
             'cnpj' => $company->cnpj,
         ])
@@ -78,7 +78,7 @@ class CompanyTest extends FeatureTest
     {
         $this->actingAs($this->consumer);
 
-        $this->postJson('api/company', [
+        $this->postJson(route('company.store'), [
             'name' => 'Company Inc',
             'cnpj' => '30668548000175',
         ])

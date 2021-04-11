@@ -21,7 +21,7 @@ class LogoutTest extends FeatureTest
             'password' => Hash::make('password'),
         ]);
 
-        $this->postJson('api/login', [
+        $this->postJson(route('login'), [
             'email'    => $user->email,
             'password' => 'password',
         ])
@@ -29,6 +29,6 @@ class LogoutTest extends FeatureTest
 
         $this->actingAs($user);
 
-        $this->postJson('api/logout')->assertSuccessful();
+        $this->postJson(route('logout'))->assertSuccessful();
     }
 }
