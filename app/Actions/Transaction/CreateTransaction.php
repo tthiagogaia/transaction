@@ -3,6 +3,7 @@
 namespace App\Actions\Transaction;
 
 use App\Facades\TransactionAuthorization;
+use App\Jobs\Transaction\CreditNotification;
 use App\Models\Operation;
 use App\Validations\Transaction\PayeeVerify\PayeeVerify;
 use App\Validations\Transaction\PayerVerify\PayerVerify;
@@ -24,11 +25,15 @@ class CreateTransaction
 
             $authorization = TransactionAuthorization::authorize();
 
-            return $payee->transactions()->create([
+            $transaction = $payee->transactions()->create([
                 'payer_id'           => $payer->id,
                 'operation_id'       => $operation->id,
                 'authorization_code' => $authorization['authorization_code'],
             ]);
+
+            CreditNotification::dispatch($payee)->afterCommit();
+
+            return $transaction;
         });
     }
 }
