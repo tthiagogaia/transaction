@@ -18,6 +18,6 @@ class PayeeCompany implements PayeeVerifiable
     {
         $company = Company::query()->find($payeeId);
 
-        return $company ? $company : $this->nextPayeeVerifiable->get($payeeId);
+        return $company ? $company : $this->nextPayeeVerifiable->getPayee($payeeId);
     }
 }

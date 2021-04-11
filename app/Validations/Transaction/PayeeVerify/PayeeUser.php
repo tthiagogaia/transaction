@@ -18,6 +18,6 @@ class PayeeUser implements PayeeVerifiable
     {
         $user = User::query()->find($payeeId);
 
-        return $user ? $user : $this->nextPayeeVerifiable->get($payeeId);
+        return $user ? $user : $this->nextPayeeVerifiable->getPayee($payeeId);
     }
 }
