@@ -30,4 +30,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'transaction' => [
+        'authorization' => [
+            'base_url' => env('TRANSACTION_AUTHORIZATION_BASE_URL')
+        ],
+        'notification' => [
+            'base_url' => env('TRANSACTION_NOTIFICATION_BASE_URL')
+        ]
+    ]
+
 ];

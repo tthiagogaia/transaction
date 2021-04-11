@@ -12,6 +12,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignId('payer_id')->constrained('users')->onDelete('RESTRICT');
             $table->foreignId('operation_id')->constrained()->onDelete('RESTRICT');
+            $table->string('authorization_code')->unique();
             $table->unsignedBigInteger('payee_id');
             $table->string('payee_type');
             $table->timestamps();
