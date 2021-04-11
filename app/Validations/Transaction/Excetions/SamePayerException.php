@@ -8,7 +8,7 @@ class SamePayerException extends \Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
-        $message = $message === ""
+        $message = $message === ''
             ? __('It is not possible to accomplish transactions from a user to the same user')
             : $message;
 
