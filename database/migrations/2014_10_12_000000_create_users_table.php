@@ -12,7 +12,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->foreignId('role_id')->constrained()->onDelete('RESTRICT');
             $table->string('name');
-            $table->string('cpf', 11);
+            $table->string('cpf', 11)->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

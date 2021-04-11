@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class LogoutTest extends FeatureTest
