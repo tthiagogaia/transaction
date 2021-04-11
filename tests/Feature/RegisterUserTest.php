@@ -53,10 +53,9 @@ class RegisterUserTest extends FeatureTest
                 'password' => __('validation.min.string', ['attribute' => 'password', 'min' => '8']),
             ]);
 
-        User::factory()->create([
-            'role_id' => Role::query()->select('id')->where('label', Role::CONSUMER)->firstOrFail()->id,
-            'cpf'     => '69243785010',
-            'email'   => 'tthiagogaia@gmail.com',
+        User::factory()->consumer()->create([
+            'cpf'   => '69243785010',
+            'email' => 'tthiagogaia@gmail.com',
         ]);
 
         $this->postJson(route('register'), [

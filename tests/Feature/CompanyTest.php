@@ -19,9 +19,7 @@ class CompanyTest extends FeatureTest
 
         $this->seed(RoleSeeder::class);
 
-        $this->consumer = User::factory()->create([
-            'role_id' => Role::query()->select('id')->where('label', Role::CONSUMER)->first()->id,
-        ]);
+        $this->consumer = User::factory()->consumer()->create();
     }
 
     public function test_only_authenticated_users_can_create_a_company()

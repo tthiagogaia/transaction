@@ -27,6 +27,24 @@ class UserFactory extends Factory
         ];
     }
 
+    public function consumer()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role_id' => Role::query()->select('id')->where('label', Role::CONSUMER)->first()->id,
+            ];
+        });
+    }
+
+    public function shopkeeper()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role_id' => Role::query()->select('id')->where('label', Role::SHOPKEEPER)->first()->id,
+            ];
+        });
+    }
+
     public function unverified()
     {
         return $this->state(function (array $attributes) {
