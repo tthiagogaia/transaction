@@ -9,17 +9,17 @@ use App\Validations\Transaction\PayeeVerify\PayeeVerify;
 use App\Validations\Transaction\PayerVerify\PayerVerify;
 use Illuminate\Support\Facades\DB;
 
-class CreateTransaction
+class CreateCreditTransaction
 {
     public function create(array $input)
     {
         return DB::transaction(function () use ($input) {
             $payee = (new PayeeVerify())->verify($input['payee_id']);
 
-            $payer = (new PayerVerify())->verify($input['payer_id'], $input['payee_id']);
+            $payer = (new PayerVerify())->verify(auth()->id(), $input['payee_id']);
 
             $operation = Operation::query()->create([
-                'type'   => $input['operation'],
+                'type'   => Operation::CREDIT,
                 'amount' => $input['amount'],
             ]);
 

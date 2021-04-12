@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Operation extends Model
 {
+    const CREDIT = 'credit';
+    const REFUND = 'refund';
+
     const ALLOWED_OPERATIONS = [
-        'credit',
-        'refund',
+        self::CREDIT,
+        self::REFUND,
     ];
 
     protected $fillable = [

@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
 
-    Route::post('/transaction', [TransactionController::class, 'store'])->name('transaction.store');
+    Route::post('/transaction/credit', [TransactionController::class, 'credit'])->name('transaction.credit');
 });
