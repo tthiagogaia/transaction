@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Wallet;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -87,6 +88,24 @@ class RegisterUserTest extends FeatureTest
         $this->assertEquals(
             $response->json('role_id'),
             Role::query()->select('id')->where('label', Role::CONSUMER)->firstOrFail()->id
+        );
+    }
+
+    public function test_new_registered_user_has_default_wallet_value()
+    {
+        $response = $this->postJson(route('register'), [
+            'name'                  => 'Thiago Gabriel',
+            'email'                 => 'tthiagogaia@gmail.com',
+            'cpf'                   => '692.437.850-10',
+            'password'              => 'password',
+            'password_confirmation' => 'password',
+        ])->assertSuccessful();
+
+        $newRegisteredUser = User::find($response->json('id'));
+
+        $this->assertEquals(
+            number_format(Wallet::DEFAULT_VALUE, 2),
+            $newRegisteredUser->wallet->amount
         );
     }
 }
