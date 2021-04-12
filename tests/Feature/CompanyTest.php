@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Wallet;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -85,6 +86,24 @@ class CompanyTest extends FeatureTest
         $this->assertEquals(
             $this->consumer->role_id,
             Role::query()->select('id')->where('label', Role::SHOPKEEPER)->first()->id
+        );
+    }
+
+    public function test_new_registered_company_has_default_wallet_value()
+    {
+        $this->actingAs($this->consumer);
+
+        $response = $this->postJson(route('company.store'), [
+            'name' => 'Company Inc',
+            'cnpj' => '30668548000175',
+        ])
+            ->assertSuccessful();
+
+        $newRegisteredCompany = Company::find($response->json('id'));
+
+        $this->assertEquals(
+            number_format(Wallet::DEFAULT_VALUE, 2),
+            $newRegisteredCompany->wallet->amount
         );
     }
 }

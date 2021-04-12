@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    use HasFactory, HasTransactions;
+    use HasFactory, HasTransactions, HasWallet;
 
     protected $fillable = [
         'name',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\Role;
+use App\Models\Wallet;
 
 class CompanyController extends Controller
 {
@@ -24,6 +25,7 @@ class CompanyController extends Controller
         $user->save();
 
         $company->users()->attach($user);
+        $company->wallet()->create(['amount' => Wallet::DEFAULT_VALUE]);
 
         return $company;
     }
