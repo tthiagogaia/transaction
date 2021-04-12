@@ -15,6 +15,7 @@ class CreateTransactionsTable extends Migration
             $table->string('authorization_code')->unique();
             $table->unsignedBigInteger('payee_id');
             $table->string('payee_type');
+            $table->timestamp('refunded_at')->nullable();
             $table->timestamps();
         });
     }

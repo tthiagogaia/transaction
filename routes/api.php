@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/transaction/credit', [TransactionController::class, 'credit'])->name('transaction.credit');
 });
+
+Route::post('/transaction/refund', [TransactionController::class, 'refund'])->name('transaction.refund');

@@ -12,10 +12,21 @@ class Transaction extends Model
         'authorization_code',
         'payee_id',
         'payee_type',
+        'refunded_at',
     ];
 
     public function payee()
     {
         return $this->morphTo();
+    }
+
+    public function payer()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function operation()
+    {
+        return $this->belongsTo(Operation::class);
     }
 }
