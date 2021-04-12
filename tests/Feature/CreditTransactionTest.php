@@ -51,13 +51,13 @@ class CreditTransactionTest extends FeatureTest
 
         TransactionAuthorization::shouldReceive('authorize')
             ->once()
-            ->andReturn(['message' => 'Autorizado', 'authorization_code' => (string) Str::uuid()]);
+            ->andReturn(['message' => 'Autorizado', 'authorization_code' => (string)Str::uuid()]);
 
         Bus::fake();
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $payee->id,
-            'amount' => 100,
+            'amount'   => 100,
         ]))
             ->assertSuccessful();
 
@@ -71,8 +71,8 @@ class CreditTransactionTest extends FeatureTest
         $this->postJson(route('transaction.credit', []))
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
-               'payee_id' => __('validation.required', ['attribute' => 'payee id']),
-               'amount' => __('validation.required', ['attribute' => 'amount']),
+                'payee_id' => __('validation.required', ['attribute' => 'payee id']),
+                'amount'   => __('validation.required', ['attribute' => 'amount']),
             ]);
     }
 
@@ -84,7 +84,7 @@ class CreditTransactionTest extends FeatureTest
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $payee->id,
-            'amount' => 'invalid',
+            'amount'   => 'invalid',
         ]))
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
@@ -93,7 +93,7 @@ class CreditTransactionTest extends FeatureTest
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $payee->id,
-            'amount' => -1,
+            'amount'   => -1,
         ]))
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
@@ -102,7 +102,7 @@ class CreditTransactionTest extends FeatureTest
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $payee->id,
-            'amount' => 0,
+            'amount'   => 0,
         ]))
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors([
@@ -112,14 +112,14 @@ class CreditTransactionTest extends FeatureTest
 
     public function test_it_should_validate_the_payer_cannot_be_a_shopkeeper()
     {
-        $payee = User::factory()->consumer()->create();
+        $payee           = User::factory()->consumer()->create();
         $shopKeeperPayer = User::factory()->shopkeeper()->create();
 
         $this->actingAs($shopKeeperPayer);
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $payee->id,
-            'amount' => 100,
+            'amount'   => 100,
         ]))
             ->assertJson(['error' => (new InvalidPayerException())->getMessage()])
             ->assertStatus(Response::HTTP_BAD_REQUEST);
@@ -131,7 +131,7 @@ class CreditTransactionTest extends FeatureTest
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => $this->consumer->id,
-            'amount' => 100,
+            'amount'   => 100,
         ]))
             ->assertJson(['error' => (new SamePayerException())->getMessage()])
             ->assertStatus(Response::HTTP_BAD_REQUEST);
@@ -143,7 +143,7 @@ class CreditTransactionTest extends FeatureTest
 
         $this->postJson(route('transaction.credit', [
             'payee_id' => 100,
-            'amount' => 100,
+            'amount'   => 100,
         ]))
             ->assertJson(['error' => (new PayeeNotFoundException())->getMessage()])
             ->assertStatus(Response::HTTP_BAD_REQUEST);

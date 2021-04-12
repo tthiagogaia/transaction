@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Operation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreditTransactionRequest extends FormRequest
@@ -15,8 +14,8 @@ class CreditTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'payee_id'  => 'required',
-            'amount'    => 'required|numeric|gt:0',
+            'payee_id' => 'required',
+            'amount'   => 'required|numeric|gt:0',
         ];
     }
 }
