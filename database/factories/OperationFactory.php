@@ -12,7 +12,7 @@ class OperationFactory extends Factory
     public function definition()
     {
         return [
-            'type' => Operation::CREDIT,
+            'type'   => Operation::CREDIT,
             'amount' => $this->faker->numberBetween(1, 100),
         ];
     }

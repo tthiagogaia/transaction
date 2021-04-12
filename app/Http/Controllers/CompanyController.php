@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use App\Models\Role;
 use App\Models\Wallet;
@@ -27,6 +28,6 @@ class CompanyController extends Controller
         $company->users()->attach($user);
         $company->wallet()->create(['amount' => Wallet::DEFAULT_VALUE]);
 
-        return $company;
+        return CompanyResource::make($company);
     }
 }

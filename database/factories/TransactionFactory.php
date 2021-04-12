@@ -16,12 +16,12 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            'payer_id' => User::factory(),
-            'operation_id' => Operation::factory(),
+            'payer_id'           => User::factory(),
+            'operation_id'       => Operation::factory(),
             'authorization_code' => Str::random(),
-            'payee_id' => Company::factory(),
-            'payee_type' => Company::class,
-            'refunded_at' => $this->faker->randomElement([now(), null]),
+            'payee_id'           => Company::factory(),
+            'payee_type'         => Company::class,
+            'refunded_at'        => $this->faker->randomElement([now(), null]),
         ];
     }
 }

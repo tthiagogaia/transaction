@@ -34,13 +34,13 @@ class RefundTransactionTest extends FeatureTest
     public function test_it_should_be_able_to_make_refund_transaction()
     {
         $transaction = Transaction::factory()->create([
-            'payer_id' => $this->consumer->id,
-            'payee_id' => $this->company->id,
+            'payer_id'    => $this->consumer->id,
+            'payee_id'    => $this->company->id,
             'refunded_at' => null,
         ]);
 
         $this->postJson(route('transaction.refund'), [
-            'transaction_id' => $transaction->id
+            'transaction_id' => $transaction->id,
         ])
             ->assertSuccessful();
     }
@@ -48,13 +48,13 @@ class RefundTransactionTest extends FeatureTest
     public function test_it_should_deny_refund_already_refunded_transaction()
     {
         $transaction = Transaction::factory()->create([
-            'payer_id' => $this->consumer->id,
-            'payee_id' => $this->company->id,
+            'payer_id'    => $this->consumer->id,
+            'payee_id'    => $this->company->id,
             'refunded_at' => now(),
         ]);
 
         $this->postJson(route('transaction.refund'), [
-            'transaction_id' => $transaction->id
+            'transaction_id' => $transaction->id,
         ])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertJson(['error' => (new RefundedTransactionException())->getMessage()]);
@@ -64,13 +64,13 @@ class RefundTransactionTest extends FeatureTest
     {
         $transaction = Transaction::factory()->create([
             'operation_id' => Operation::factory()->create(['type' => Operation::REFUND]),
-            'payer_id' => $this->consumer->id,
-            'payee_id' => $this->company->id,
-            'refunded_at' => now(),
+            'payer_id'     => $this->consumer->id,
+            'payee_id'     => $this->company->id,
+            'refunded_at'  => now(),
         ]);
 
         $this->postJson(route('transaction.refund'), [
-            'transaction_id' => $transaction->id
+            'transaction_id' => $transaction->id,
         ])
             ->assertStatus(Response::HTTP_BAD_REQUEST)
             ->assertJson(['error' => (new InvalidRefundTransactionException())->getMessage()]);

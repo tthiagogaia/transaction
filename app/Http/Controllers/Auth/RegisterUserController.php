@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Wallet;
@@ -25,7 +26,7 @@ class RegisterUserController extends Controller
 
             $user->wallet()->create(['amount' => Wallet::DEFAULT_VALUE]);
 
-            return $user;
+            return UserResource::make($user);
         });
     }
 }

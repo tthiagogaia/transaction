@@ -99,7 +99,7 @@ class CompanyTest extends FeatureTest
         ])
             ->assertSuccessful();
 
-        $newRegisteredCompany = Company::find($response->json('id'));
+        $newRegisteredCompany = Company::find($response->json('data.id'));
 
         $this->assertEquals(
             number_format(Wallet::DEFAULT_VALUE, 2),

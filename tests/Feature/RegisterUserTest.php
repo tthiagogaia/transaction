@@ -86,7 +86,7 @@ class RegisterUserTest extends FeatureTest
         ])->assertSuccessful();
 
         $this->assertEquals(
-            $response->json('role_id'),
+            $response->json('data.role_id'),
             Role::query()->select('id')->where('label', Role::CONSUMER)->firstOrFail()->id
         );
     }
@@ -101,7 +101,7 @@ class RegisterUserTest extends FeatureTest
             'password_confirmation' => 'password',
         ])->assertSuccessful();
 
-        $newRegisteredUser = User::find($response->json('id'));
+        $newRegisteredUser = User::find($response->json('data.id'));
 
         $this->assertEquals(
             number_format(Wallet::DEFAULT_VALUE, 2),

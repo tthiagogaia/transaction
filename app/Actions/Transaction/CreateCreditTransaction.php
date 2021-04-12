@@ -3,7 +3,6 @@
 namespace App\Actions\Transaction;
 
 use App\Facades\TransactionAuthorization;
-use App\Jobs\Transaction\CreditNotification;
 use App\Models\Operation;
 use App\Validations\Transaction\Exceptions\InsufficientCreditsException;
 use App\Validations\Transaction\PayeeVerify\PayeeVerify;
@@ -35,8 +34,6 @@ class CreateCreditTransaction
                 'operation_id'       => $operation->id,
                 'authorization_code' => $authorization['authorization_code'],
             ]);
-
-            CreditNotification::dispatch($payee)->afterCommit();
 
             return $transaction;
         });
