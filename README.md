@@ -1,62 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# TRANSACTION REST API
+Este repositório contem o código base para o projeto **TRANSACTION REST API**.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Stack
 
-## About Laravel
+Este projeto é baseado nas seguintes tecnologias:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Laravel 8** + **PHP 8.0** + **PHP-FPM** + **PostgreSQL** + **NGINX**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+com todo o ambiente em execução em containers **Docker**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Começando
 
-## Learning Laravel
+A infraestrutura implementada usa **Docker** e **Docker Compose**.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Tenha certeza de possuir o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Verifique-os com os seguintes comandos:
+```bash
+docker -v
+```
+```bash
+docker-compose -v
+```
 
-## Laravel Sponsors
+## Ambiente de desenvolvimento
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Clone o repositório remoto para o ambiente de desenvolvimento, com o seguinte comando:
+```bash
+git clone https://github.com/tthiagogaia/transaction.git
+```
 
-### Premium Partners
+E para configurar o ambiente de desenvolvimento, siga as próximas etapas do guia abaixo.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+### 1 Iniciando o ambiente
 
-## Contributing
+**1.1** Na raiz do projeto **transaction**, que foi recentemente clonado, crie o arquivo **.env** usando:
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**1.2** Ainda na raiz do projeto **transaction** execute:
+```bash
+docker-compose up -d --build
+```
 
-## Code of Conduct
+e aguarde. Quando este comando terminar, todos os serviços deverão estar em execução em containers.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2 Configuração do projeto
 
-## Security Vulnerabilities
+**2.1** Acesse o postgres, que já deve estar rodando dentro do seu Docker, e crie as seguintes databases:
+```bash
+transaction
+```
+```bash
+transaction_test
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**OBS:** Se você não alterou nada nos passos anteriores, as credenciais do banco são:
+```bash
+Host: localhost
+User: postgres
+Password: postgres
+```
 
-## License
+**2.2** Instale os pacotes de dependência do projeto:
+```bash
+docker-compose run --rm composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**2.3** Gere a **APP_KEY** usando o seguinte comando:
+```bash
+docker-compose run --rm artisan key:generate
+```
+
+**2.4** Crie as tabelas e os seeders do projeto:
+
+```bash
+docker-compose run --rm artisan migrate --seed
+```
+
+## Code Quality
+
+Antes de cada push, faça verificações no código rodando o seguinte comando:
+
+```bash
+docker-compose run --rm composer check
+```
+
+Este comando irá executar:
+
+#### PHP Coding Standards Fixer
+
+Verifica se o código está obedecendo ao estilo do código e irá corrigi-lo se não estiver.
+
+#### PHPMD
+
+Procura vários potenciais problemas no código.
+
+#### PHP CodeSniffer
+
+Procura violações contra o padrão de codificação definido.
+
+#### PHPUnit
+
+Executa o conjunto de testes.
+
+## Tests
+O comando a cima, executa os testes em conjunto com outros comandos. Mas caso seja
+necessário executar os testes testes, execute o seguinte comando:
+
+```bash
+docker-compose run --rm artisa test
+```
