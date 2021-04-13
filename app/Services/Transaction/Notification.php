@@ -15,9 +15,9 @@ class Notification
 
         $response = $response->json();
 
-        $mockMesssage = rand(0, 1) === 1 ? 'Enviado' : '! Enviado';
+        $mockMessage = rand(0, 1) === 1 ? 'Enviado' : '! Enviado';
 
-        if ($response['message'] !== $mockMesssage) {
+        if ($response['message'] !== $mockMessage) {
             throw new CreditNotificationUndeliveredException();
         }
 
