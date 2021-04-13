@@ -9,6 +9,7 @@ class TransactionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'                 => $this->id,
             'payer_id'           => $this->payer_id,
             'operation_id'       => $this->operation_id,
             'authorization_code' => $this->authorization_code,
