@@ -110,5 +110,5 @@ O comando a cima, executa os testes em conjunto com outros comandos. Mas caso se
 necessário executar os testes testes, execute o seguinte comando:
 
 ```bash
-docker-compose run --rm artisa test
+docker-compose run --rm artisan test
 ```
